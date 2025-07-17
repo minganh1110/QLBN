@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fetch sinh viên</title>
+</head>
+<body>
+    <h2>Thông tin sinh viên</h2>
+    <label>Mã SV: </label><input type="text" id="masv"><br>
+    <label>Họ tên: </label><input type="text" id="hoten"><br>
+    <label>Tuổi: </label><input type="text" id="tuoi"><br>
+    <button onclick="laySinhVien()">Lấy sinh viên</button>
+
+    <script>
+        function laySinhVien() {
+            fetch("http://127.0.0.1:8000/items")
+                .then(response => response.json())
+                .then(data => {
+                    // Lấy dòng đầu tiên (index 0)
+                    const sv = data[0];
+                    document.getElementById("masv").value = sv.masv;
+                    document.getElementById("hoten").value = sv.hoten;
+                    document.getElementById("tuoi").value = sv.tuoi;
+                })
+                .catch(error => {
+                    console.error("Lỗi khi gọi API:", error);
+                });
+        }
+    </script>
+</body>
+</html>
